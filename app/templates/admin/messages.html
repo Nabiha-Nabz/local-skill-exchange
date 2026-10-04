@@ -1,0 +1,2 @@
+{% extends 'base.html' %}{% block title %}Admin · Messages{% endblock %}{% block content %}<section class="admin-shell shell">{% include 'admin/_nav.html' %}<div class="admin-main"><div class="page-head"><span class="eyebrow">Privacy-respecting overview</span><h1>Messaging</h1><p>Aggregate activity only. Private chat contents remain private.</p></div><div class="metric-grid">{% for key,value in stats.items() %}<div class="metric glass"><span>{{ key|replace('_',' ')|title }}</span><strong>{{ value }}</strong></div>{% endfor %}</div></div></section>{% endblock %}
+

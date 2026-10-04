@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Local Skill Exchange">
+  <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#7c72ff"/><stop offset="1" stop-color="#37c8e8"/></linearGradient></defs>
+  <rect width="64" height="64" rx="18" fill="#0b0e16"/>
+  <path d="M15 22h18a7 7 0 0 1 7 7v13H22a7 7 0 0 1-7-7V22Z" fill="url(#g)"/>
+  <path d="M49 42H31a7 7 0 0 1-7-7V22h18a7 7 0 0 1 7 7v13Z" fill="#ffffff" fill-opacity=".2"/>
+  <path d="M23 31h18M32 22v18" stroke="#fff" stroke-width="4" stroke-linecap="round"/>
+</svg>

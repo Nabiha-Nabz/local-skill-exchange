@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en" data-theme="midnight">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Exchange practical skills with people in your local community.">
+  <title>{% block title %}{{ platform_settings.get('platform_name', 'Local Skill Exchange') }}{% endblock %}</title>
+  <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='favicon.svg') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/app.css') }}">
+  <script defer src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+  <script defer src="{{ url_for('static', filename='js/app.js') }}"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="ambient ambient-a"></div><div class="ambient ambient-b"></div>
+  <header class="site-header glass">
+    <a class="brand" href="{{ url_for('main.home') }}"><span class="brand-mark">LX</span><span>{{ platform_settings.get('platform_name', 'Local Skill Exchange') }}</span></a>
+    <button class="nav-toggle" type="button" data-nav-toggle aria-label="Toggle navigation" aria-expanded="false">☰</button>
+    <nav class="main-nav" data-nav>
+      <a href="{{ url_for('main.home') }}">Home</a><a href="{{ url_for('main.explore') }}">Explore skills</a><a href="{{ url_for('main.how_it_works') }}">How it works</a>
+      {% if current_user.is_authenticated %}
+        {% if current_user.role == 'admin' %}<a href="{{ url_for('admin.dashboard') }}">Admin panel</a>{% else %}<a href="{{ url_for('user.dashboard') }}">Dashboard</a><a href="{{ url_for('user.messages') }}">Messages</a><a class="notification-link" href="{{ url_for('user.notifications') }}">Notifications{% if unread_notifications %}<span>{{ unread_notifications }}</span>{% endif %}</a>{% endif %}
+        <form method="post" action="{{ url_for('admin.logout' if current_user.role == 'admin' else 'auth.logout') }}"><input type="hidden" name="csrf_token" value="{{ csrf_token() }}"><button class="link-button">Log out</button></form>
+      {% else %}<a href="{{ url_for('auth.login') }}">Log in</a><a class="button compact" href="{{ url_for('auth.register') }}">Join the community</a>{% endif %}
+      <button class="theme-cycle" type="button" data-theme-cycle aria-label="Try the next color theme" title="Try me!">Try me! <span data-theme-name>Midnight</span></button>
+    </nav>
+  </header>
+  {% if platform_settings.get('maintenance_message') %}<div class="maintenance-banner" role="status">{{ platform_settings.maintenance_message }}</div>{% endif %}
+  {% with messages = get_flashed_messages(with_categories=true) %}{% if messages %}<div class="toast-stack" role="status">{% for category, message in messages %}<div class="toast {{ category }}">{{ message }}<button type="button" aria-label="Dismiss">×</button></div>{% endfor %}</div>{% endif %}{% endwith %}
+  <main id="main">{% block content %}{% endblock %}</main>
+  <footer class="site-footer glass">
+    <div class="footer-grid"><div class="footer-intro"><a class="brand" href="{{ url_for('main.home') }}"><span class="brand-mark">LX</span><span>LOCAL SKILL EXCHANGE</span></a><p>Exchange knowledge. Build connections. Grow together.</p></div><div><h2>Explore</h2><a href="{{ url_for('main.explore') }}">Skills</a><a href="{{ url_for('main.how_it_works') }}">How it works</a><a href="{{ url_for('main.guidelines') }}">Guidelines</a></div><div><h2>Project team</h2><div class="team-pill"><strong>Tarun Yadav Gumma — Team Lead</strong><span>Vishal</span><span>Gulraj Gill</span><span>Himanshu Rana</span><span>Aman</span></div></div></div>
+    <div class="footer-bottom">© {{ current_year }} Local Skill Exchange Platform</div>
+  </footer>
+  {% block scripts %}{% endblock %}
+</body></html>

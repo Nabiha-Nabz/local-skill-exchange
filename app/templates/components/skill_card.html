@@ -1,0 +1,8 @@
+<article class="skill-card glass">
+  <div class="card-top"><span class="badge">{{ skill.category.name }}</span><span class="views">{{ skill.views }} views</span></div>
+  <h3><a href="{{ url_for('main.skill_detail', skill_id=skill.id) }}">{{ skill.title }}</a></h3>
+  <p class="exchange-line"><span>Offers</span> {{ skill.offered }}</p><p class="exchange-line"><span>Wants</span> {{ skill.wanted }}</p>
+  <div class="person-row"><div class="avatar">{{ skill.owner.name[0] }}</div><div><a href="{{ url_for('user.profile', user_id=skill.owner.id) }}">{{ skill.owner.name }}</a><small>{{ skill.location }} · {{ skill.experience }}</small></div></div>
+  <a class="card-link" href="{{ url_for('main.skill_detail', skill_id=skill.id) }}">View exchange <span>→</span></a>
+</article>
+
